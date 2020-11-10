@@ -14,6 +14,14 @@ available, etc!
 
 ### Running chanspy Locally
 
+You can create a rootless container to run podman in:
+
+```bash
+podman run -it --rm --name chanspy-dev -v "$HOME/src/git/chanspy":/home/node/chanspy:Z -w /home/node/chanspy --userns=keep-id node:15.1.0 /bin/bash
+```
+
+The above assumes that you have a chanspy checkout located at `$HOME/src/git/chanspy`.
+
 You can test your hubot by running the following, however some plugins will not
 behave as expected unless the [environment variables](#configuration) they rely
 upon have been set.
