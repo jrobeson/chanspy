@@ -32,8 +32,7 @@ module.exports = function(robot) {
         if (data.country_code !== 'US') {
             stateCode = '';
         }
-        return `current weather for`
-            + ` ${data.city_name},${stateCode} ${data.country_code}`
+        return `${data.city_name},${stateCode} ${data.country_code}`
             + ` (${data.lat},${data.lon}):`
             + ` ${data.temp}°C (${convertCelsiusToFahrenheit(data.temp)}°F),`
             + ` ${data.rh}% humidity,`
