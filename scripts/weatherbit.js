@@ -36,13 +36,17 @@ module.exports = function(robot) {
             + ` (${data.lat},${data.lon}):`
             + ` ${data.temp}°C (${convertCelsiusToFahrenheit(data.temp)}°F),`
             + ` ${data.rh}% humidity,`
-            + ` wind ${data.wind_cdir} at ${data.wind_spd}m/s`
+            + ` wind ${data.wind_cdir} at ${convertMetersPerSecondToKmPerHour(data.wind_spd).toFixed(2)}km/h`
             + ` (${convertMetersPerSecondToMilesPerHour(data.wind_spd).toFixed(2)}mph),`
             + ` ${data.weather.description.toLowerCase()}`;
     }
 
     function convertCelsiusToFahrenheit(c) {
         return (c * (9/5)) + 32;
+    }
+
+    function convertMetersPerSecondToKmPerHour(m) {
+        return m * 3.6;
     }
 
     function convertMetersPerSecondToMilesPerHour(m) {
