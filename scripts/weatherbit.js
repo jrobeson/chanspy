@@ -34,7 +34,7 @@ module.exports = function(robot) {
         }
         return `${data.city_name},${stateCode} ${data.country_code}`
             + ` (${data.lat},${data.lon}):`
-            + ` ${data.temp}°C (${convertCelsiusToFahrenheit(data.temp)}°F),`
+            + ` ${data.temp}°C (${convertCelsiusToFahrenheit(data.temp).toFixed(2)}°F),`
             + ` ${data.rh}% humidity,`
             + ` wind ${data.wind_cdir} at ${convertMetersPerSecondToKmPerHour(data.wind_spd).toFixed(2)}km/h`
             + ` (${convertMetersPerSecondToMilesPerHour(data.wind_spd).toFixed(2)}mph),`
