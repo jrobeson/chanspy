@@ -50,15 +50,28 @@ module.exports = function(robot) {
         }
 
         function apiErrorHandler(error) {
-            if (error.request) {
-                console.error('request error: dumping request object:');
-                console.error(error.request);
-            } else if (error.response) {
-                console.error(`response error: http status ${error.response.status}: ${error.response.statusText}`);
-                console.error(error.response.headers);
-                console.error(error.response.data);
+            // only including this for type checking
+            const http = require('http');
+            if (typeof error.request !== 'undefined' && error.request instanceof http.ClientRequest) {
+                const req = error.request;
+                let responseInfo = '';
+                if (typeof req.res !== 'undefined') {
+                    const res = req.res;
+                    responseInfo = ` status code: ${res.statusCode}, status message: ${res.statusMessage},`;
+                }
+                console.error(`request error:${responseInfo}`
+                    + ` method: ${req.method}`
+                    + `, protocol: ${req.protocol}`
+                    + `, host: ${req.host}`
+                    + `, path: ${req.path}`);
             } else {
-                console.error(`general api error: ${error.message}`);
+                let errorInfo = '';
+                if (typeof error.stack !== 'undefined') {
+                    errorInfo = error.stack;
+                } else {
+                    errorInfo = `${error}`;
+                }
+                console.error(`general api error: ${errorInfo}`);
             }
             msg.send('oof, there was a problem getting the weather data :(');
         }
