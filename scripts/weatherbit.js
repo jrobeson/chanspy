@@ -34,8 +34,7 @@ module.exports = function(robot) {
         }
         return `current weather for`
             + ` ${data.city_name},${stateCode} ${data.country_code}`
-            + ` (${data.lat},${data.lon})`
-            + ` at ${data.ob_time}:`
+            + ` (${data.lat},${data.lon}):`
             + ` ${data.temp}°C,`
             + ` ${data.rh}% humidity,`
             + ` wind ${data.wind_cdir} at ${data.wind_spd}m/s,`
