@@ -28,8 +28,12 @@ module.exports = function(robot) {
     }
 
     function formatWeatherData(data) {
+        let stateCode = ` ${data.state_code},`;
+        if (data.country_code !== 'US') {
+            stateCode = '';
+        }
         return `current weather for`
-            + ` ${data.city_name}, ${data.state_code}, ${data.country_code}`
+            + ` ${data.city_name},${stateCode} ${data.country_code}`
             + ` (${data.lat},${data.lon})`
             + ` at ${data.ob_time}:`
             + ` ${data.temp}°C,`
