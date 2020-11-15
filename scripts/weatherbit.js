@@ -50,7 +50,7 @@ module.exports = function(robot) {
     }
 
     function convertMetersPerSecondToMilesPerHour(m) {
-        return m * 2.236936;
+        return m * (3600/1609.344);
     }
 
     robot.respond(/weather( for)? (.+)/i, function(msg){
