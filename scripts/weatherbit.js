@@ -76,7 +76,8 @@ module.exports = function(robot) {
             msg.send('oof, there was a problem getting the weather data :(');
         }
 
-        const searchParam = msg.match[2].replaceAll(/\s+/g, '');
+        // replace all whitespace with commas and then remove duplicate commas
+        const searchParam = msg.match[2].replace(/\s+/g, ',').replace(/(,)\1+/g, '$1');
         weatherbitGet(weatherbitCurrentPath, {city: searchParam}, apiResponseHandler, apiErrorHandler);
     });
 }
