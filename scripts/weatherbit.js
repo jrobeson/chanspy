@@ -38,7 +38,7 @@ module.exports = function(robot) {
             + ` ${data.rh}% humidity,`
             + ` wind ${data.wind_cdir} at ${data.wind_spd}m/s`
             + ` (${convertMetersPerSecondToMilesPerHour(data.wind_spd).toFixed(2)}mph),`
-            + ` ${data.weather.description}`;
+            + ` ${data.weather.description.toLowerCase()}`;
     }
 
     function convertCelsiusToFahrenheit(c) {
