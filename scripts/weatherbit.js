@@ -35,10 +35,14 @@ module.exports = function(robot) {
         return `current weather for`
             + ` ${data.city_name},${stateCode} ${data.country_code}`
             + ` (${data.lat},${data.lon}):`
-            + ` ${data.temp}°C,`
+            + ` ${data.temp}°C (${convertCelsiusToFahrenheit(data.temp)}°F),`
             + ` ${data.rh}% humidity,`
             + ` wind ${data.wind_cdir} at ${data.wind_spd}m/s,`
             + ` ${data.weather.description}`;
+    }
+
+    function convertCelsiusToFahrenheit(c) {
+        return (c * (9/5)) + 32;
     }
 
     robot.respond(/weather( for)? (.+)/i, function(msg){
