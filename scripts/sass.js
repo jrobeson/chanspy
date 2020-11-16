@@ -1,3 +1,21 @@
+// Description:
+//   Adds some sassy replies to the bot.
+//
+// Dependencies:
+//   None.
+//
+// Configuration:
+//   None.
+//
+// Commands:
+//   hubot <greeting> - Say hi to me!
+//
+// Notes:
+//   None.
+//
+// Author:
+//   https://github.com/davidscholberg
+
 module.exports = function (robot) {
     robot.hear(/^a[y]{2,}$/i, function (msg) {
         msg.send('lmao');

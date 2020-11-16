@@ -1,3 +1,21 @@
+// Description:
+//   Fetches and prints weather data.
+//
+// Dependencies:
+//   weatherbit library (provided locally)
+//
+// Configuration:
+//   HUBOT_WEATHERBIT_API_KEY
+//
+// Commands:
+//   hubot weather <location> - Displays weather for the given location.
+//
+// Notes:
+//   None.
+//
+// Author:
+//   https://github.com/davidscholberg
+
 module.exports = function(robot) {
     const weatherbitApiKey = process.env.HUBOT_WEATHERBIT_API_KEY;
 
