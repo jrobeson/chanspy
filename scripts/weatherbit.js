@@ -1,28 +1,5 @@
 module.exports = function(robot) {
-    const weatherbitApiHost = 'https://api.weatherbit.io';
-    const weatherbitCurrentWeatherPath = '/v2.0/current';
     const weatherbitApiKey = process.env.HUBOT_WEATHERBIT_API_KEY;
-
-    function weatherbitGet(path, queryObject, responseCallback, errorCallback) {
-        const fullQueryObject = {
-            key: weatherbitApiKey,
-            ...queryObject
-        };
-
-        chanspy = require('../lib/chanspy');
-        chanspy.http(
-            'get',
-            weatherbitApiHost,
-            path,
-            fullQueryObject,
-            'json',
-            function (status) {
-                return status === 200;
-            },
-            responseCallback,
-            errorCallback
-        );
-    }
 
     function formatWeatherData(data) {
         let stateCode = ` ${data.state_code},`;
@@ -67,11 +44,8 @@ module.exports = function(robot) {
 
         // replace all whitespace with commas and then remove duplicate commas
         const searchParam = msg.match[2].replace(/\s+/g, ',').replace(/(,)\1+/g, '$1');
-        weatherbitGet(
-            weatherbitCurrentWeatherPath,
-            {city: searchParam},
-            currentWeatherResponseHandler,
-            weatherErrorHandler
-        );
+        const weatherbit = require('../lib/weatherbit');
+        weatherbit.setApiKey(weatherbitApiKey);
+        weatherbit.getCurrentWeather(searchParam, currentWeatherResponseHandler, weatherErrorHandler);
     });
 }
