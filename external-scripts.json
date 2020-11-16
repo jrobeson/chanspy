@@ -1,6 +1,4 @@
 [
-  "hubot-diagnostics",
   "hubot-help",
-  "@throneless/hubot-file-brain",
-  "hubot-rules"
+  "@throneless/hubot-file-brain"
 ]
