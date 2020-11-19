@@ -63,8 +63,7 @@ module.exports = function (robot) {
       msg.send('oof, there was a problem getting the weather data :(');
     }
 
-    // replace all whitespace with commas and then remove duplicate commas
-    const searchParam = msg.match[2].replace(/\s+/g, ',').replace(/(,)\1+/g, '$1');
+    const searchParam = msg.match[2];
     const weatherbit = require('../lib/weatherbit');
     weatherbit.setApiKey(weatherbitApiKey);
     weatherbit.getCurrentWeather(searchParam, currentWeatherResponseHandler, weatherErrorHandler);
