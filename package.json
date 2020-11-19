@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "author": "David Scholberg <recombinant.vector@gmail.com>",
-  "description": "A hubot implementation for funsies",
+  "description": "A hubot implementation for funsies and definitely not profit",
   "dependencies": {
     "@throneless/hubot-file-brain": "^0.2.0",
     "axios": "^0.21.0",
