@@ -59,7 +59,7 @@ module.exports = function (robot) {
       msg.send(formatWeatherData(response.data.data[0]));
     }
 
-    function weatherErrorHandler(error) {
+    function weatherErrorHandler() {
       msg.send('oof, there was a problem getting the weather data :(');
     }
 
