@@ -22,7 +22,7 @@ module.exports = function (robot) {
     });
 
     robot.respond(/(hi|hello|hey|greetings|hola|aloha)/i, function (msg) {
-        msg.reply(`${msg.match[1]} (☞ﾟヮﾟ)☞`);
+        msg.reply(`${msg.match[1]} (☛°ヮ°)☛`);
     });
 
     robot.respond(/(fu|fuck you|you suck|sucks)/i, function (msg) {
