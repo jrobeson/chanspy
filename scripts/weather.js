@@ -16,7 +16,7 @@
 // Author:
 //   https://github.com/davidscholberg
 
-const weatherbit = require('../lib/weatherbit');
+const { Weatherbit } = require('../lib/weatherbit');
 
 function formatWeatherData(data) {
   let stateCode = ` ${data.state_code},`;
@@ -66,6 +66,7 @@ module.exports = (robot) => {
     }
 
     const searchParam = msg.match[2];
+    const weatherbit = new Weatherbit();
     weatherbit.setApiKey(weatherbitApiKey);
     weatherbit.getCurrentWeather(searchParam, currentWeatherResponseHandler, weatherErrorHandler);
   });
