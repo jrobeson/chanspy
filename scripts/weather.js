@@ -47,13 +47,21 @@ function convertMetersPerSecondToMilesPerHour(m) {
   return m * (3600 / 1609.344);
 }
 
-module.exports = (robot) => {
+function configureWeatherbit() {
   const weatherbitApiKey = process.env.HUBOT_WEATHERBIT_API_KEY;
+  if (typeof weatherbitApiKey === 'undefined') {
+    console.error(`HUBOT_WEATHERBIT_API_KEY is not set`);
+    return null;
+  }
+  return new Weatherbit(weatherbitApiKey);
+}
+
+module.exports = (robot) => {
+  const weatherbit = configureWeatherbit();
 
   robot.respond(/weather( for)? (.+)/i, (msg) => {
-    if (typeof weatherbitApiKey === 'undefined') {
-      console.error(`error: HUBOT_WEATHERBIT_API_KEY is not set`);
-      msg.send('error: the weather module is not configured properly');
+    if (weatherbit === null) {
+      msg.send('oof, the weather module is not configured properly :(');
       return;
     }
 
@@ -66,8 +74,6 @@ module.exports = (robot) => {
     }
 
     const searchParam = msg.match[2];
-    const weatherbit = new Weatherbit();
-    weatherbit.setApiKey(weatherbitApiKey);
     weatherbit.getCurrentWeather(searchParam, currentWeatherResponseHandler, weatherErrorHandler);
   });
 };
