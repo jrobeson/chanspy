@@ -16,16 +16,16 @@
 // Author:
 //   https://github.com/davidscholberg
 
-module.exports = function (robot) {
-  robot.hear(/^a[y]{2,}$/i, function (msg) {
+module.exports = (robot) => {
+  robot.hear(/^a[y]{2,}$/i, (msg) => {
     msg.send('lmao');
   });
 
-  robot.respond(/(hi|hello|hey|greetings|hola|aloha)/i, function (msg) {
+  robot.respond(/(hi|hello|hey|greetings|hola|aloha)/i, (msg) => {
     msg.reply(`${msg.match[1]} (☛°ヮ°)☛`);
   });
 
-  robot.respond(/(fu|fuck you|you suck|sucks)/i, function (msg) {
+  robot.respond(/(fu|fuck you|you suck|sucks)/i, (msg) => {
     msg.reply('(ಠ_ಠ)┌∩┐');
   });
 };

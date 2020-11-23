@@ -50,7 +50,7 @@ function convertMetersPerSecondToMilesPerHour(m) {
 module.exports = (robot) => {
   const weatherbitApiKey = process.env.HUBOT_WEATHERBIT_API_KEY;
 
-  robot.respond(/weather( for)? (.+)/i, function (msg) {
+  robot.respond(/weather( for)? (.+)/i, (msg) => {
     if (typeof weatherbitApiKey === 'undefined') {
       console.error(`error: HUBOT_WEATHERBIT_API_KEY is not set`);
       msg.send('error: the weather module is not configured properly');
