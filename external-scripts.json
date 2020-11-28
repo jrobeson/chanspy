@@ -1,4 +1,5 @@
 [
   "hubot-help",
+  "hubot-youtube",
   "@throneless/hubot-file-brain"
 ]
