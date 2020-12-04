@@ -8,7 +8,7 @@
 //   HUBOT_WEATHERBIT_API_KEY
 //
 // Commands:
-//   hubot weather <location> - Displays weather for the given location.
+//   hubot weather [--show-latlon] <location> - Displays weather for the given location.
 //
 // Notes:
 //   None.
@@ -18,15 +18,18 @@
 
 const { Weatherbit } = require('../lib/weatherbit');
 
-function formatWeatherData(data) {
-  let stateCode = ` ${data.state_code},`;
-  if (data.country_code !== 'US') {
-    stateCode = '';
+function formatWeatherData(data, showLatLon) {
+  let stateCode = '';
+  if (data.country_code === 'US') {
+    stateCode = ` ${data.state_code},`;
+  }
+  let latLon = '';
+  if (showLatLon) {
+    latLon = ` (${data.lat},${data.lon})`;
   }
   return (
-    `${data.city_name},${stateCode} ${data.country_code}` +
-    ` (${data.lat},${data.lon}):` +
-    ` ${data.temp}°C (${convertCelsiusToFahrenheit(data.temp).toFixed(2)}°F),` +
+    `${data.city_name},${stateCode} ${data.country_code}` + latLon +
+    `: ${data.temp}°C (${convertCelsiusToFahrenheit(data.temp).toFixed(2)}°F),` +
     ` ${data.rh}% humidity,` +
     ` wind ${data.wind_cdir} at` +
     ` ${convertMetersPerSecondToKmPerHour(data.wind_spd).toFixed(2)}km/h` +
@@ -59,21 +62,22 @@ function configureWeatherbit() {
 module.exports = (robot) => {
   const weatherbit = configureWeatherbit();
 
-  robot.respond(/weather( for)? (.+)/i, (msg) => {
+  robot.respond(/weather( --show-latlon)? (.+)/i, (msg) => {
     if (weatherbit === null) {
       msg.send('oof, the weather module is not configured properly :(');
       return;
     }
 
+    const showLatLon = msg.match[1] === ' --show-latlon';
     function currentWeatherResponseHandler(response) {
-      msg.send(formatWeatherData(response.data.data[0]));
+      msg.send(formatWeatherData(response.data.data[0], showLatLon));
     }
 
     function weatherErrorHandler() {
       msg.send('oof, there was a problem getting the weather data :(');
     }
 
-    const searchParam = msg.match[2];
+    const searchParam = msg.match[2].trim();
     weatherbit.getCurrentWeather(searchParam, currentWeatherResponseHandler, weatherErrorHandler);
   });
 };
