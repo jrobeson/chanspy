@@ -3,4 +3,5 @@ node_modules
 .hubot_history
 .*.swp
 brain.json
+data
 .env
