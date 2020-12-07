@@ -75,8 +75,7 @@ module.exports = async (robot) => {
           }
           response.send(outputText);
         } else {
-          const dateString = quote.date.toISOString().replace('T', ' ').substr(0, 19);
-          response.send(`${dateString} <${quote.user}> ${quote.text}`);
+          response.send(`<${quote.user}> ${quote.text}`);
         }
       } catch (error) {
         console.error(`error retrieving quote from database: ${error}`);
