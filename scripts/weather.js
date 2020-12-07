@@ -28,7 +28,8 @@ function formatWeatherData(data, showLatLon) {
     latLon = ` (${data.lat},${data.lon})`;
   }
   return (
-    `${data.city_name},${stateCode} ${data.country_code}` + latLon +
+    `${data.city_name},${stateCode} ${data.country_code}` +
+    latLon +
     `: ${data.temp}°C (${convertCelsiusToFahrenheit(data.temp).toFixed(2)}°F),` +
     ` ${data.rh}% humidity,` +
     ` wind ${data.wind_cdir} at` +
@@ -62,22 +63,19 @@ function configureWeatherbit() {
 module.exports = (robot) => {
   const weatherbit = configureWeatherbit();
 
-  robot.respond(/weather( --show-latlon)? (.+)/i, (msg) => {
+  robot.respond(/weather( --show-latlon)? (.+)/i, async (msg) => {
     if (weatherbit === null) {
       msg.send('oof, the weather module is not configured properly :(');
       return;
     }
-
     const showLatLon = msg.match[1] === ' --show-latlon';
-    function currentWeatherResponseHandler(response) {
+    const searchParam = msg.match[2].trim();
+    try {
+      const response = await weatherbit.getCurrentWeather(searchParam);
       msg.send(formatWeatherData(response.data.data[0], showLatLon));
-    }
-
-    function weatherErrorHandler() {
+    } catch (error) {
+      console.error(`error getting/displaying weather data: ${error}`);
       msg.send('oof, there was a problem getting the weather data :(');
     }
-
-    const searchParam = msg.match[2].trim();
-    weatherbit.getCurrentWeather(searchParam, currentWeatherResponseHandler, weatherErrorHandler);
   });
 };
