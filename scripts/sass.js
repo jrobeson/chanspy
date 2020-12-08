@@ -37,6 +37,6 @@ module.exports = (robot) => {
     }
     subject = subject.trim();
     const notDoing = ['sun is', 'stars are', 'trees are', 'moon is', 'planets are', 'galaxies are'];
-    msg.reply(`${msg.random(notDoing)} not doing, ${subject} is doing`);
+    msg.send(`${msg.random(notDoing)} not doing, ${subject} is doing`);
   });
 };
