@@ -9,6 +9,7 @@
 //
 // Commands:
 //   hubot <greeting> - Say hi to me!
+//   hubot doing [subject] - celestial bodies are not doing, [subject] is doing
 //
 // Notes:
 //   None.
@@ -27,5 +28,15 @@ module.exports = (robot) => {
 
   robot.respond(/(fu|fuck you|you suck|sucks)/i, (msg) => {
     msg.reply('(ಠ_ಠ)┌∩┐');
+  });
+
+  robot.respond(/doing( .+)?/i, (msg) => {
+    let subject = msg.match[1];
+    if (typeof subject === 'undefined' || subject.trim() === '') {
+      subject = msg.message.user.name;
+    }
+    subject = subject.trim();
+    const notDoing = ['sun is', 'stars are', 'trees are', 'moon is', 'planets are', 'galaxies are'];
+    msg.reply(`${msg.random(notDoing)} not doing, ${subject} is doing`);
   });
 };
