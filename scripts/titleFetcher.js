@@ -24,8 +24,6 @@ const { JSDOM } = require('jsdom');
 
 const { Twitter } = require('../lib/twitter');
 
-let ignoreExtensions = ['.png', '.jpg', '.jpeg', '.gif', '.txt', '.zip', '.tar.bz', '.js', '.css'];
-
 //const regex = /(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-.,@?^=%&amp;:/~+#]*[\w\-@?^=%&amp;/~+#])?/i;
 const regex = /https?:\/\/[^\s$.?#].[^\s]*/g;
 
@@ -123,9 +121,6 @@ module.exports = async (robot) => {
   robot.hear(regex, async (msg) => {
     msg.match.map(async (url) => {
       const urlData = new globalThis.URL(url);
-      if (ignoreExtensions.some((ext) => urlData.path.includes(ext))) {
-        return;
-      }
 
       let title = '';
       if (isTweet(urlData)) {
