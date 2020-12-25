@@ -132,7 +132,7 @@ module.exports = async (robot) => {
         if (twitterClient && getTwitterStatusId(urlData.pathname)) {
           try {
             const tweet = await twitterClient.getTweet(getTwitterStatusId(urlData.pathname));
-            title = `${tweet.user.name}(@${tweet.user.screen_name}) ${tweet.text}`;
+            title = `${tweet.user.name} (@${tweet.user.screen_name}): ${tweet.text}`;
           } catch (error) {
             console.error(`error fetching tweet (${urlData.url}): ${error}`);
           }
