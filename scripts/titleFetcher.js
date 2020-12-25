@@ -24,8 +24,7 @@ const { JSDOM } = require('jsdom');
 
 const { Twitter } = require('../lib/twitter');
 
-//const regex = /(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-.,@?^=%&amp;:/~+#]*[\w\-@?^=%&amp;/~+#])?/i;
-const regex = /https?:\/\/[^\s$.?#].[^\s]*/g;
+const regex = /https?:\/\/[^\s]+/g;
 
 // the most minimal set of entities to transform
 const unescapeHtmlEntities = (html) =>
@@ -120,7 +119,13 @@ module.exports = async (robot) => {
   }
   robot.hear(regex, async (msg) => {
     msg.match.map(async (url) => {
-      const urlData = new globalThis.URL(url);
+      let urlData;
+      try {
+        urlData = new globalThis.URL(url);
+      } catch {
+        // If the url can't be parsed then there's nothing more to be done
+        return;
+      }
 
       let title = '';
       if (isTweet(urlData)) {
