@@ -154,7 +154,7 @@ module.exports = async (robot) => {
         return;
       }
 
-      const formattedTitle = formatTitle(title);
+      const formattedTitle = `${formatTitle(title)} - [${urlData.hostname}]`;
       return msg.send(unescapeHtmlEntities(formattedTitle));
     });
   });
